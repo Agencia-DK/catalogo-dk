@@ -1,12 +1,57 @@
 // Cambia este número por el WhatsApp del negocio, con lada y solo dígitos.
 const WHATSAPP_NUMBER = "";
 
-const products = [
-  { id: 1, name: "Rosa", image: "assets/modelo-1.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md1-rosa-xv" },
-  { id: 2, name: "Rosa", image: "assets/modelo-2.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md2-xv-rosa" },
-  { id: 4, name: "Rosa", image: "assets/modelo-4.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md4-xv-rosa" },
-  { id: 5, name: "Rosa", image: "assets/modelo-5.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md5-xv-rosa" },
-];
+const covers = Array.from({ length: 9 }, (_, index) => `assets/cover-${String(index + 1).padStart(2, "0")}.jpg`);
+const weddingNames = ["Mar", "Negro", "Periódico", "Paisajes", "Verde Olivo", "Terracota", "Viaje", "Elegante"];
+const demoPaths = {
+  "XV Años": {
+    Ultra: {
+      1: "up-md1-rosa-xv", 2: "up-md2-xv-rosa", 4: "up-md4-xv-rosa", 5: "up-md5-xv-rosa",
+      6: "up-md6-xv-rosa", 7: "up-md7-xv-rosa", 8: "up-md8-xv-rosa", 9: "up-md9-xv-rosa",
+      10: "up-md10-xv-rosa", 11: "up-md11-xv-rosa", 12: "up-md12-xv-rosa", 13: "up-md13-xv-rosa",
+      14: "up-md14-xv-rosa", 15: "up-md15-xv-rosa", 16: "up-md16-xv-rosa",
+    },
+    Intermedio: {
+      1: "intermedio-md1-rosa", 2: "intermedio-md2-xv-rosa", 4: "md4-xv-rosa-intermedio", 5: "md-5-xv-intermedio-rosa",
+      6: "md-6-xv-intermedio-rosa", 7: "md-7-xv-intermedio-rosa", 8: "md-8-xv-intermedio-rosa", 9: "md-9-xv-intermedio-rosa",
+      10: "md-10-xv-intermedio-rosa", 11: "md-11-intermedio-rosa", 12: "md-12-xv-intermedio-rosa", 13: "md-13-xv-intermedio-rosa",
+      14: "md-14-xv-intermedio-rosa", 15: "md-15-xv-intermedio-rosa", 16: "md-16-xv-intermedio-rosa",
+    },
+    Premium: {
+      1: "premium-md1-xv-rosa", 2: "premium-md2-xv-rosa", 4: "premium-md4-xv-rosa", 5: "premium-md5-xv-rosa",
+      6: "premium-md6-xv-rosa", 7: "premium-md7-xv-rosa", 8: "premium-md8-xv-rosa", 9: "premium-md9-xv-rosa",
+      10: "modelo-md10-xv-rosa", 11: "premium-md11-xv-rosa", 12: "premium-md12-xv-rosa", 13: "premium-md13-xv-rosa",
+      14: "premium-md14-xv-rosa", 15: "premium-md15-xv-rosa", 16: "premium-md16-xv-rosa",
+    },
+  },
+  Boda: {
+    Ultra: {
+      1: "up-md1-mar-luni", 2: "up-md2-negro-luni", 3: "up-md3-periodico-luni", 4: "up-md4-paisajes-luni",
+      5: "up-md5-verde-olivo-luni", 6: "up-md6-terracota-luni", 7: "up-md7-viaje-luni", 8: "up-md8-elegante-luni",
+    },
+    Premium: {
+      1: "md1-mar-premium-luni", 2: "md2-negro-premium-luni", 3: "md3-premium-luni", 4: "md4-premium-luni",
+      5: "md5-vrd-olivo-premium-luni", 6: "md6-premium-luni", 7: "md7-viaje-premium-luni", 8: "md8-elegante-boda-premium",
+    },
+    Intermedio: {
+      1: "md1-mar-intermdio-luni", 2: "md2-negro-intermedio-luni", 3: "md3-periodico-intermedio-luni", 4: "md4-paisajes-intermedio-luni",
+      5: "md5-vrd-olivo-intermedio-luni", 6: "md6-terracota-intermedio-luni", 7: "md7-viaje-intermedio-lunia", 8: "md8-elegante-intermedio-luni",
+    },
+  },
+};
+const products = Object.entries(demoPaths).flatMap(([occasion, tiers]) =>
+  Object.entries(tiers).flatMap(([tier, models]) =>
+    Object.entries(models).map(([number, path]) => {
+      const id = Number(number);
+      return {
+        key: `${occasion === "Boda" ? "boda" : "xv"}-${tier.toLowerCase()}-${id}`,
+        id, name: occasion === "Boda" ? weddingNames[id - 1] : "Rosa",
+        image: covers[(id - 1) % covers.length], occasion, tier,
+        demo: `https://estudioluni.com/published/${path}`,
+      };
+    })
+  )
+);
 
 const packageImages = {
   Intermedio: { src: "assets/paquete-intermedio.png", usd: 45, mxn: 900, alt: "Paquete Intermedio: música, cuenta regresiva, lluvia de sobres, hasta 3 fotos, código de vestimenta, pase sencillo y confirmación." },
@@ -26,7 +71,7 @@ function icon(name) {
 
 function contactUrl(product) {
   const message = product
-    ? `Hola, me interesa el Modelo ${product.id} ${product.name} de Luni Estudio. ¿Me pueden dar más información?`
+    ? `Hola, me interesa el Modelo ${product.id} ${product.name} (${product.occasion}, ${product.tier}) de Luni Estudio. ¿Me pueden dar más información?`
     : "Hola, quisiera información sobre las invitaciones de Luni Estudio.";
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
@@ -60,8 +105,8 @@ function render() {
   grid.innerHTML = visible.length
     ? visible.map((product, index) => `
       <article class="product-card">
-        <button class="favorite" type="button" data-favorite="${product.id}" aria-label="${favorites.has(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"} el modelo ${product.id}" aria-pressed="${favorites.has(product.id)}">${icon("heart")}</button>
-        <div class="product-card__photo"><img src="${product.image}" alt="Vestido rosa del modelo ${product.id}" loading="lazy" /></div>
+        <button class="favorite" type="button" data-favorite="${product.key}" aria-label="${favorites.has(product.key) ? "Quitar de favoritos" : "Agregar a favoritos"} el modelo ${product.id}" aria-pressed="${favorites.has(product.key)}">${icon("heart")}</button>
+        <div class="product-card__photo"><img src="${product.image}" alt="Portada del modelo ${product.id} ${product.name}" loading="lazy" /></div>
         <div class="product-card__body">
           <p class="product-card__label">Modelo ${product.id}</p>
           <h3>${product.name}</h3>
@@ -69,7 +114,7 @@ function render() {
           <p class="product-card__kind">${icon("people")} Invitación interactiva</p>
           <div class="product-card__actions">
             <a class="button button--demo" href="${product.demo}" target="_blank" rel="noopener noreferrer">${icon("eye")} Ver demo</a>
-            <a class="button button--green" href="${contactUrl(product)}" data-whatsapp="modelo" data-product="${product.id}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
+            <a class="button button--green" href="${contactUrl(product)}" data-whatsapp="modelo" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
           </div>
         </div>
       </article>${index % 2 === 1 ? packageInfo() : ""}`).join("")
@@ -99,11 +144,11 @@ document.addEventListener("click", (event) => {
   if (tier) { state.tier = tier.dataset.tier; state.category = ""; render(); }
   if (category) { state.category = state.category === category.dataset.category ? "" : category.dataset.category; render(); }
   if (favorite) {
-    const id = Number(favorite.dataset.favorite);
-    favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+    const key = favorite.dataset.favorite;
+    favorites.has(key) ? favorites.delete(key) : favorites.add(key);
     localStorage.setItem("luni-favorites", JSON.stringify([...favorites]));
     render();
-    showToast(favorites.has(id) ? "Guardado en favoritos" : "Quitado de favoritos");
+    showToast(favorites.has(key) ? "Guardado en favoritos" : "Quitado de favoritos");
   }
   if (whatsapp && !WHATSAPP_NUMBER) {
     event.preventDefault();
