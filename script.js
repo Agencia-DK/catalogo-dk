@@ -2,21 +2,20 @@
 const WHATSAPP_NUMBER = "";
 
 const products = [
-  { id: 1, name: "Rosa", price: 1450, image: "assets/modelo-1.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 2, name: "Rosa", price: 1450, image: "assets/modelo-2.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 4, name: "Rosa", price: 1450, image: "assets/modelo-4.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 5, name: "Rosa", price: 1450, image: "assets/modelo-5.jpg", occasion: "XV Años", tier: "Ultra" },
+  { id: 1, name: "Rosa", image: "assets/modelo-1.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md1-rosa-xv" },
+  { id: 2, name: "Rosa", image: "assets/modelo-2.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md2-xv-rosa" },
+  { id: 4, name: "Rosa", image: "assets/modelo-4.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md4-xv-rosa" },
+  { id: 5, name: "Rosa", image: "assets/modelo-5.jpg", occasion: "XV Años", tier: "Ultra", demo: "https://estudioluni.com/published/up-md5-xv-rosa" },
 ];
 
 const packageImages = {
-  Intermedio: { src: "assets/paquete-intermedio.png", alt: "Paquete Intermedio: música, cuenta regresiva, lluvia de sobres, hasta 3 fotos, código de vestimenta, pase sencillo y confirmación. $45 USD o $900 MXN." },
-  Premium: { src: "assets/paquete-premium.png", alt: "Paquete Premium: datos del evento, música, ubicación, hasta 10 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pases e itinerario. $59 USD o $1100 MXN." },
-  Ultra: { src: "assets/paquete-ultra.png", alt: "Paquete Ultra Premium: datos del evento, música, ubicación, hasta 15 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pase personalizado e itinerario. $74 USD o $1450 MXN." },
+  Intermedio: { src: "assets/paquete-intermedio.png", usd: 45, mxn: 900, alt: "Paquete Intermedio: música, cuenta regresiva, lluvia de sobres, hasta 3 fotos, código de vestimenta, pase sencillo y confirmación." },
+  Premium: { src: "assets/paquete-premium.png", usd: 59, mxn: 1100, alt: "Paquete Premium: datos del evento, música, ubicación, hasta 10 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pases e itinerario." },
+  Ultra: { src: "assets/paquete-ultra.png", usd: 74, mxn: 1450, alt: "Paquete Ultra Premium: datos del evento, música, ubicación, hasta 15 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pase personalizado e itinerario." },
 };
 
 const state = { occasion: "XV Años", category: "", tier: "Ultra" };
 const grid = document.querySelector("#product-grid");
-const dialog = document.querySelector("#preview-dialog");
 const toast = document.querySelector("#toast");
 const favorites = new Set(JSON.parse(localStorage.getItem("luni-favorites") || "[]"));
 let toastTimer;
@@ -39,9 +38,14 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3500);
 }
 
+function priceMarkup(tier) {
+  const { usd, mxn } = packageImages[tier];
+  return `<div class="price"><strong>$${usd} USD</strong><small>$${mxn.toLocaleString("es-MX")} MXN</small></div>`;
+}
+
 function packageInfo() {
   const image = packageImages[state.tier];
-  return `<figure class="package-info"><a href="${image.src}" target="_blank" rel="noopener noreferrer" aria-label="Ampliar detalles del paquete ${state.tier}"><img src="${image.src}" alt="${image.alt}" loading="lazy" /></a></figure>`;
+  return `<figure class="package-info package-info--${state.tier.toLowerCase()}"><a href="${image.src}" target="_blank" rel="noopener noreferrer" aria-label="Ampliar detalles del paquete ${state.tier}"><img src="${image.src}" alt="${image.alt}" loading="lazy" />${priceMarkup(state.tier)}</a></figure>`;
 }
 
 function render() {
@@ -61,10 +65,10 @@ function render() {
         <div class="product-card__body">
           <p class="product-card__label">Modelo ${product.id}</p>
           <h3>${product.name}</h3>
-          <p class="product-card__price">$${product.price.toLocaleString("es-MX")} MXN</p>
+          ${priceMarkup(product.tier)}
           <p class="product-card__kind">${icon("people")} Invitación interactiva</p>
           <div class="product-card__actions">
-            <button class="button button--demo" type="button" data-preview="${product.id}">${icon("eye")} Ver demo</button>
+            <a class="button button--demo" href="${product.demo}" target="_blank" rel="noopener noreferrer">${icon("eye")} Ver demo</a>
             <a class="button button--green" href="${contactUrl(product)}" data-whatsapp="modelo" data-product="${product.id}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
           </div>
         </div>
@@ -89,7 +93,6 @@ document.addEventListener("click", (event) => {
   const tier = event.target.closest("[data-tier]");
   const category = event.target.closest("[data-category]");
   const favorite = event.target.closest("[data-favorite]");
-  const preview = event.target.closest("[data-preview]");
   const whatsapp = event.target.closest("[data-whatsapp]");
 
   if (occasion) { state.occasion = occasion.dataset.occasion; state.category = ""; render(); }
@@ -102,20 +105,10 @@ document.addEventListener("click", (event) => {
     render();
     showToast(favorites.has(id) ? "Guardado en favoritos" : "Quitado de favoritos");
   }
-  if (preview) {
-    const product = products.find((item) => item.id === Number(preview.dataset.preview));
-    document.querySelector("#preview-title").textContent = `Modelo ${product.id} · ${product.name}`;
-    document.querySelector("#preview-image").src = product.image;
-    document.querySelector("#preview-image").alt = `Vista previa del modelo ${product.id}`;
-    document.querySelector("#preview-order").href = contactUrl(product);
-    dialog.showModal();
-  }
   if (whatsapp && !WHATSAPP_NUMBER) {
     event.preventDefault();
     showToast("Falta configurar el número de WhatsApp del negocio.");
   }
 });
 
-document.querySelector(".preview-dialog__close").addEventListener("click", () => dialog.close());
-dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
 render();
