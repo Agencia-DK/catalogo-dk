@@ -4,7 +4,7 @@ Catálogo web estático basado en las capturas de referencia. No requiere instal
 
 ## Verlo localmente
 
-Abre `index.html` en el navegador. También puedes usar cualquier servidor de archivos estáticos.
+Ejecuta `node server.mjs` y abre `http://localhost:5173`.
 
 ## Cambiar el contenido
 
