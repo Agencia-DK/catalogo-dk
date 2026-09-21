@@ -20,9 +20,8 @@ svg{width:1.5rem;height:1.5rem;fill:none;stroke:currentColor;stroke-width:1.8;st
 .hero__down:hover{transform:translateY(5px)}
 .catalog{background:#fff0f5;padding:24px 0 68px}
 .catalog__inner{max-width:1200px;margin:auto;padding:0 20px}
-.contact-banner{min-height:80px;border-radius:999px;background:linear-gradient(100deg,#c94771,#d8587c);color:white;display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 26px;font-size:clamp(1.1rem,2.2vw,1.55rem);font-weight:800;text-align:center}
-.contact-banner svg{width:32px;height:32px;flex:none}
-.contact-banner__arrow{width:20px!important}
+.info-banner{min-height:80px;border-radius:999px;background:linear-gradient(100deg,#c94771,#d8587c);color:white;display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 26px;font-size:clamp(1.1rem,2.2vw,1.55rem);font-weight:800;text-align:center}
+.info-banner svg{width:32px;height:32px;flex:none}
 .occasion-switch{display:grid;grid-template-columns:1fr 1fr;background:#fff;padding:10px;border:1px solid #dbe1ec;border-radius:35px;margin-top:30px;box-shadow:0 2px 3px #17223c13}
 .occasion-switch__button{border:0;background:transparent;border-radius:999px;min-height:69px;font-size:1.35rem;font-weight:750;color:#142238;display:flex;align-items:center;justify-content:center;gap:13px}
 .occasion-switch__button.is-active{background:#d65479;color:#fff;box-shadow:0 4px 5px #17223c24}
@@ -53,7 +52,7 @@ svg{width:1.5rem;height:1.5rem;fill:none;stroke:currentColor;stroke-width:1.8;st
 .button svg{width:24px;height:24px}
 .button--demo{background:#ffe18d;color:#142238}
 .button--green{background:#05ac64;color:#fff}
-.button:hover,.contact-banner:hover{filter:brightness(.96)}
+.button:hover{filter:brightness(.96)}
 .favorite{position:absolute;top:20px;right:18px;border:0;background:transparent;color:#df4272;padding:5px;z-index:1}
 .favorite svg{width:29px;height:29px;transition:fill .15s}
 .favorite[aria-pressed=true] svg{fill:#df4272}
@@ -88,7 +87,7 @@ footer p{margin:8px 0 0;color:#dce1ed}
 .favorite{top:12px;right:10px}
 }
 @media(max-width:700px){.hero{min-height:550px;align-items:flex-start;background-position:58% center}
-.hero:before{background:linear-gradient(180deg,rgba(255,244,248,.97),rgba(255,244,248,.82) 46%,rgba(255,244,248,.06) 90%)}
+.hero:before{background:linear-gradient(90deg,rgba(255,244,248,.97),rgba(255,244,248,.88) 30%,rgba(255,244,248,.5) 65%,rgba(255,244,248,0) 100%)}
 .hero__content{padding:34px 22px}
 .hero h1{font-size:clamp(4.3rem,16vw,6.5rem)}
 .hero__subtitle{font-size:1.8rem}
@@ -97,8 +96,8 @@ footer p{margin:8px 0 0;color:#dce1ed}
 .hero__down{bottom:20px;left:calc(50% - 12px);font-size:2.7rem}
 .catalog__inner{padding:0 14px}
 .catalog{padding-top:14px}
-.contact-banner{min-height:65px;font-size:1rem;gap:8px;padding:12px}
-.contact-banner svg{width:23px;height:23px}
+.info-banner{min-height:65px;font-size:1rem;gap:8px;padding:12px}
+.info-banner svg{width:23px;height:23px}
 .occasion-switch{margin-top:16px;padding:6px;border-radius:24px}
 .occasion-switch__button{min-height:54px;font-size:1rem;gap:5px}
 .occasion-switch__button svg{width:20px;height:20px}
@@ -133,5 +132,5 @@ footer p{margin:8px 0 0;color:#dce1ed}
 .product-card__kind{font-size:.74rem}
 .button{font-size:.75rem}
 .hero__features{gap:10px}
-.contact-banner{font-size:.86rem}
+.info-banner{font-size:.86rem}
 }
