@@ -1,5 +1,4 @@
-// Cambia este número por el WhatsApp del negocio, con lada y solo dígitos.
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_URL = "https://wa.link/r9t5yb";
 
 const covers = Array.from({ length: 9 }, (_, index) => `assets/cover-${String(index + 1).padStart(2, "0")}.jpg`);
 const weddingNames = ["Mar", "Negro", "Periódico", "Paisajes", "Verde Olivo", "Terracota", "Viaje", "Elegante"];
@@ -69,13 +68,6 @@ function icon(name) {
   return `<svg aria-hidden="true"><use href="#icon-${name}"></use></svg>`;
 }
 
-function contactUrl(product) {
-  const message = product
-    ? `Hola, me interesa el Modelo ${product.id} ${product.name} (${product.occasion}, ${product.tier}) de Luni Estudio. ¿Me pueden dar más información?`
-    : "Hola, quisiera información sobre las invitaciones de Luni Estudio.";
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
-
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add("is-visible");
@@ -114,7 +106,7 @@ function render() {
           <p class="product-card__kind">${icon("people")} Invitación interactiva</p>
           <div class="product-card__actions">
             <a class="button button--demo" href="${product.demo}" target="_blank" rel="noopener noreferrer">${icon("eye")} Ver demo</a>
-            <a class="button button--green" href="${contactUrl(product)}" data-whatsapp="modelo" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
+            <a class="button button--green" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
           </div>
         </div>
       </article>${index % 2 === 1 ? packageInfo() : ""}`).join("")
@@ -138,7 +130,6 @@ document.addEventListener("click", (event) => {
   const tier = event.target.closest("[data-tier]");
   const category = event.target.closest("[data-category]");
   const favorite = event.target.closest("[data-favorite]");
-  const whatsapp = event.target.closest("[data-whatsapp]");
 
   if (occasion) { state.occasion = occasion.dataset.occasion; state.category = ""; render(); }
   if (tier) { state.tier = tier.dataset.tier; state.category = ""; render(); }
@@ -149,10 +140,6 @@ document.addEventListener("click", (event) => {
     localStorage.setItem("luni-favorites", JSON.stringify([...favorites]));
     render();
     showToast(favorites.has(key) ? "Guardado en favoritos" : "Quitado de favoritos");
-  }
-  if (whatsapp && !WHATSAPP_NUMBER) {
-    event.preventDefault();
-    showToast("Falta configurar el número de WhatsApp del negocio.");
   }
 });
 
