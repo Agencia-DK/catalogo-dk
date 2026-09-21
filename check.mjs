@@ -21,6 +21,7 @@ vm.runInNewContext(readFileSync("script.js", "utf8"), {
 });
 
 const grid = get("#product-grid");
+assert.equal(get("#catalog-subtitle").textContent, "Todos los modelos se pueden adaptar al color que quieras");
 assert.equal((grid.innerHTML.match(/class="product-card"/g) || []).length, 4);
 assert.equal((grid.innerHTML.match(/class="package-info"/g) || []).length, 2);
 assert.ok(grid.innerHTML.indexOf("Modelo 2") < grid.innerHTML.indexOf('class="package-info"'));

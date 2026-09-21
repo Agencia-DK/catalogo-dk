@@ -51,7 +51,7 @@ function render() {
     : "All models can be customized in any color you like";
   document.querySelector("#catalog-subtitle").textContent = state.category
     ? "Pronto encontrarás aquí los modelos de esta categoría."
-    : `Invitaciones ${state.occasion.toLowerCase()} · ${state.tier}`;
+    : "Todos los modelos se pueden adaptar al color que quieras";
 
   grid.innerHTML = visible.length
     ? visible.map((product, index) => `
