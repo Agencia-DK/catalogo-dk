@@ -45,7 +45,7 @@ function priceMarkup(tier) {
 
 function packageInfo() {
   const image = packageImages[state.tier];
-  return `<figure class="package-info package-info--${state.tier.toLowerCase()}"><a href="${image.src}" target="_blank" rel="noopener noreferrer" aria-label="Ampliar detalles del paquete ${state.tier}"><img src="${image.src}" alt="${image.alt}" loading="lazy" />${priceMarkup(state.tier)}</a></figure>`;
+  return `<figure class="package-info package-info--${state.tier.toLowerCase()}"><img src="${image.src}" alt="${image.alt}" loading="lazy" />${priceMarkup(state.tier)}</figure>`;
 }
 
 function render() {
