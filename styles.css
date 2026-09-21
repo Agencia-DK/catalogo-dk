@@ -20,11 +20,12 @@ svg{width:1.5rem;height:1.5rem;fill:none;stroke:currentColor;stroke-width:1.8;st
 .hero__down:hover{transform:translateY(5px)}
 .catalog{background:#fff0f5;padding:24px 0 68px}
 .catalog__inner{max-width:1200px;margin:auto;padding:0 20px}
-.info-banner{min-height:80px;border-radius:999px;background:linear-gradient(100deg,#c94771,#d8587c);color:white;display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 26px;font-size:clamp(1.1rem,2.2vw,1.55rem);font-weight:800;text-align:center}
-.info-banner svg{width:32px;height:32px;flex:none}
-.info-banner__details{display:flex;flex-direction:column;align-items:center;gap:2px}
-.info-banner__details strong{font-size:1.3em}
-.info-banner__details small{font-size:.75em}
+.info-banner{min-height:80px;border-radius:24px;background:linear-gradient(100deg,#c94771,#d8587c);color:white;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px}
+.info-banner__copy,.info-banner__price{display:flex;flex-direction:column;gap:4px}
+.info-banner__copy strong{font-size:clamp(1.1rem,2vw,1.4rem)}
+.info-banner__copy small,.info-banner__price small{font-size:.85rem;font-weight:600}
+.info-banner__price{align-items:flex-end;border-left:1px solid #ffffff80;padding-left:24px;white-space:nowrap}
+.info-banner__price strong{font-size:clamp(1.3rem,2.2vw,1.7rem)}
 .occasion-switch{display:grid;grid-template-columns:1fr 1fr;background:#fff;padding:10px;border:1px solid #dbe1ec;border-radius:35px;margin-top:30px;box-shadow:0 2px 3px #17223c13}
 .occasion-switch__button{border:0;background:transparent;border-radius:999px;min-height:69px;font-size:1.35rem;font-weight:750;color:#142238;display:flex;align-items:center;justify-content:center;gap:13px}
 .occasion-switch__button.is-active{background:#d65479;color:#fff;box-shadow:0 4px 5px #17223c24}
@@ -98,8 +99,8 @@ footer p{margin:8px 0 0;color:#dce1ed}
 .hero__down{bottom:20px;left:calc(50% - 12px);font-size:2.7rem}
 .catalog__inner{padding:0 14px}
 .catalog{padding-top:14px}
-.info-banner{min-height:65px;font-size:1rem;gap:8px;padding:12px}
-.info-banner svg{width:23px;height:23px}
+.info-banner{min-height:76px;border-radius:20px;gap:12px;padding:14px 18px}
+.info-banner__price{padding-left:16px}
 .occasion-switch{margin-top:16px;padding:6px;border-radius:24px}
 .occasion-switch__button{min-height:54px;font-size:1rem;gap:5px}
 .occasion-switch__button svg{width:20px;height:20px}
@@ -130,5 +131,7 @@ footer p{margin:8px 0 0;color:#dce1ed}
 .product-card__kind{font-size:.74rem}
 .button{font-size:.75rem}
 .hero__features{gap:10px}
-.info-banner{font-size:.86rem}
+.info-banner__copy strong{font-size:1rem}
+.info-banner__price strong{font-size:1.15rem}
+.info-banner__price{padding-left:12px}
 }
