@@ -11,5 +11,6 @@ Ejecuta `node server.mjs` y abre `http://localhost:5173`.
 - En `script.js`, reemplaza `WHATSAPP_NUMBER` por el número del negocio con lada y solo dígitos (ejemplo: `5215512345678`).
 - Edita `products` para cambiar modelos, precios, imágenes, categorías y niveles.
 - Sustituye las imágenes de `assets/` por las fotos oficiales. Las imágenes actuales son provisionales y generadas para esta maqueta.
+- Las fichas `paquete-*.png` son las imágenes proporcionadas para Intermedio, Premium y Ultra; se muestran después de cada dos modelos.
 
 Los filtros sin productos muestran “Próximamente” hasta que se agreguen modelos reales. Los botones de WhatsApp se activan al configurar el número.

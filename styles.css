@@ -30,13 +30,15 @@ svg{width:1.5rem;height:1.5rem;fill:none;stroke:currentColor;stroke-width:1.8;st
 .extra-categories button{min-height:80px;border:1px solid #dbe1ec;border-radius:999px;background:white;box-shadow:0 2px 3px #17223c1a;display:flex;align-items:center;gap:18px;text-align:left;padding:16px 27px;color:#142238;font-size:1.35rem;font-weight:750}
 .extra-categories button:hover,.extra-categories button.is-active{border-color:#d65479}
 .extra-categories .chevron{margin-left:auto;width:20px;height:20px}
-.tier-switch{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:10px;border:1px solid #dbe1ec;border-radius:999px;background:#fff;box-shadow:0 2px 3px #17223c13}
+.tier-switch{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px;border:1px solid #dbe1ec;border-radius:999px;background:#fff;box-shadow:0 2px 3px #17223c13}
 .tier-switch button{min-height:55px;border:0;border-radius:999px;background:transparent;color:#455674;font-weight:750;font-size:1.1rem}
 .tier-switch button.is-active{background:#18243c;color:#fff}
 .catalog__heading{margin:38px 0 26px}
 .catalog__heading h2{font-size:clamp(1.9rem,3.4vw,2.5rem);line-height:1.16;letter-spacing:-.02em;margin:0;font-weight:850}
 .catalog__heading p{margin:11px 0 0;color:#5d687c;font-size:1.05rem}
 .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.package-info{grid-column:1/-1;margin:0;border:1px solid #dfe4ef;border-radius:28px;overflow:hidden;background:#fff}
+.package-info img{display:block;width:100%;height:auto}
 .product-card{position:relative;min-height:395px;background:#fff;border:1px solid #dfe4ef;border-radius:28px;padding:24px;display:grid;grid-template-columns:36% 1fr;gap:30px;overflow:hidden}
 .product-card__photo{border:10px solid #211f20;border-radius:29px;overflow:hidden;background:#211f20;box-shadow:0 7px 14px #1321391c;aspect-ratio:1/1.95;align-self:stretch;position:relative}
 .product-card__photo:before{content:"";position:absolute;z-index:1;top:7px;left:35%;width:30%;height:5px;border-radius:4px;background:#2b2b2b}

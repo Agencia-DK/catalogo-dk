@@ -22,8 +22,12 @@ vm.runInNewContext(readFileSync("script.js", "utf8"), {
 
 const grid = get("#product-grid");
 assert.equal((grid.innerHTML.match(/class="product-card"/g) || []).length, 4);
-onClick({ target: { closest: (selector) => selector === "[data-tier]" ? { dataset: { tier: "Básico" } } : null } });
+assert.equal((grid.innerHTML.match(/class="package-info"/g) || []).length, 2);
+assert.ok(grid.innerHTML.indexOf("Modelo 2") < grid.innerHTML.indexOf('class="package-info"'));
+assert.ok(grid.innerHTML.indexOf('class="package-info"') < grid.innerHTML.indexOf("Modelo 4"));
+onClick({ target: { closest: (selector) => selector === "[data-tier]" ? { dataset: { tier: "Premium" } } : null } });
 assert.match(grid.innerHTML, /Próximamente/);
+assert.match(grid.innerHTML, /paquete-premium\.png/);
 onClick({ target: { closest: (selector) => selector === "[data-tier]" ? { dataset: { tier: "Ultra" } } : null } });
 assert.equal((grid.innerHTML.match(/class="product-card"/g) || []).length, 4);
-console.log("Catálogo: filtros básicos correctos");
+console.log("Catálogo: filtros y fichas correctos");

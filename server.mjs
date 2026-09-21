@@ -1,12 +1,12 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 
-const types = { html: "text/html", css: "text/css", js: "text/javascript", jpg: "image/jpeg" };
+const types = { html: "text/html", css: "text/css", js: "text/javascript", jpg: "image/jpeg", png: "image/png" };
 
 createServer(async (request, response) => {
   const pathname = new URL(request.url, "http://localhost").pathname;
   const file = pathname === "/" ? "index.html" : pathname.slice(1);
-  if (!["index.html", "styles.css", "script.js"].includes(file) && !/^assets\/modelo-[1245]\.jpg$|^assets\/portada\.jpg$/.test(file)) {
+  if (!["index.html", "styles.css", "script.js"].includes(file) && !/^assets\/[a-z0-9-]+\.(jpg|png)$/.test(file)) {
     response.writeHead(404).end();
     return;
   }

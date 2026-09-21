@@ -2,11 +2,17 @@
 const WHATSAPP_NUMBER = "";
 
 const products = [
-  { id: 1, name: "Rosa", price: 1249, image: "assets/modelo-1.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 2, name: "Rosa", price: 1249, image: "assets/modelo-2.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 4, name: "Rosa", price: 1249, image: "assets/modelo-4.jpg", occasion: "XV Años", tier: "Ultra" },
-  { id: 5, name: "Rosa", price: 1249, image: "assets/modelo-5.jpg", occasion: "XV Años", tier: "Ultra" },
+  { id: 1, name: "Rosa", price: 1450, image: "assets/modelo-1.jpg", occasion: "XV Años", tier: "Ultra" },
+  { id: 2, name: "Rosa", price: 1450, image: "assets/modelo-2.jpg", occasion: "XV Años", tier: "Ultra" },
+  { id: 4, name: "Rosa", price: 1450, image: "assets/modelo-4.jpg", occasion: "XV Años", tier: "Ultra" },
+  { id: 5, name: "Rosa", price: 1450, image: "assets/modelo-5.jpg", occasion: "XV Años", tier: "Ultra" },
 ];
+
+const packageImages = {
+  Intermedio: { src: "assets/paquete-intermedio.png", alt: "Paquete Intermedio: música, cuenta regresiva, lluvia de sobres, hasta 3 fotos, código de vestimenta, pase sencillo y confirmación. $45 USD o $900 MXN." },
+  Premium: { src: "assets/paquete-premium.png", alt: "Paquete Premium: datos del evento, música, ubicación, hasta 10 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pases e itinerario. $59 USD o $1100 MXN." },
+  Ultra: { src: "assets/paquete-ultra.png", alt: "Paquete Ultra Premium: datos del evento, música, ubicación, hasta 15 fotos, código de vestimenta, lluvia de sobres, confirmación, cuenta regresiva, pase personalizado e itinerario. $74 USD o $1450 MXN." },
+};
 
 const state = { occasion: "XV Años", category: "", tier: "Ultra" };
 const grid = document.querySelector("#product-grid");
@@ -33,17 +39,22 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3500);
 }
 
+function packageInfo() {
+  const image = packageImages[state.tier];
+  return `<figure class="package-info"><a href="${image.src}" target="_blank" rel="noopener noreferrer" aria-label="Ampliar detalles del paquete ${state.tier}"><img src="${image.src}" alt="${image.alt}" loading="lazy" /></a></figure>`;
+}
+
 function render() {
   const visible = products.filter((product) => product.occasion === state.occasion && product.tier === state.tier && !state.category);
   document.querySelector("#catalog-title").textContent = state.category
     ? state.category
-    : "Todos los modelos se pueden adaptar al color que quieras";
+    : "All models can be customized in any color you like";
   document.querySelector("#catalog-subtitle").textContent = state.category
     ? "Pronto encontrarás aquí los modelos de esta categoría."
     : `Invitaciones ${state.occasion.toLowerCase()} · ${state.tier}`;
 
   grid.innerHTML = visible.length
-    ? visible.map((product) => `
+    ? visible.map((product, index) => `
       <article class="product-card">
         <button class="favorite" type="button" data-favorite="${product.id}" aria-label="${favorites.has(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"} el modelo ${product.id}" aria-pressed="${favorites.has(product.id)}">${icon("heart")}</button>
         <div class="product-card__photo"><img src="${product.image}" alt="Vestido rosa del modelo ${product.id}" loading="lazy" /></div>
@@ -57,8 +68,8 @@ function render() {
             <a class="button button--green" href="${contactUrl(product)}" data-whatsapp="modelo" data-product="${product.id}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")} Pedir este modelo</a>
           </div>
         </div>
-      </article>`).join("")
-    : `<div class="empty-state"><h3>Próximamente</h3><p>Aún estamos preparando los modelos de ${state.category || `${state.occasion} · ${state.tier}`}.</p></div>`;
+      </article>${index % 2 === 1 ? packageInfo() : ""}`).join("")
+    : `<div class="empty-state"><h3>Próximamente</h3><p>Aún estamos preparando los modelos de ${state.category || `${state.occasion} · ${state.tier}`}.</p></div>${state.category ? "" : packageInfo()}`;
 
   document.querySelectorAll("[data-occasion]").forEach((button) => {
     const active = button.dataset.occasion === state.occasion && !state.category;
