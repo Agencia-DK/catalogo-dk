@@ -7,6 +7,7 @@
     <meta name="description" content="Catálogo de invitaciones digitales para XV años y bodas de Luni Estudio." />
     <title>Catálogo | Luni Estudio</title>
     <link rel="stylesheet" href="styles.css" />
+    <script defer src="catalog-data.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -30,7 +31,7 @@
         <p class="hero__subtitle">Premium invitations<br />for your event</p>
         <div class="hero__features">
           <span><svg><use href="#icon-gem" /></svg> Diseños<br />exclusivos</span>
-          <span><svg><use href="#icon-palette" /></svg> Diseños en rosa</span>
+          <span><svg><use href="#icon-palette" /></svg> Colores a tu gusto</span>
         </div>
       </div>
       <a class="hero__down" href="#catalogo" aria-label="Ir al catálogo">↓</a>
@@ -48,19 +49,17 @@
           <button class="occasion-switch__button" type="button" data-occasion="Boda" aria-pressed="false"><svg><use href="#icon-rings" /></svg> Boda</button>
         </nav>
 
-        <div class="extra-categories">
-          <button type="button" data-category="Temáticas"><svg><use href="#icon-image" /></svg><span>Temáticas</span><svg class="chevron"><use href="#icon-chevron" /></svg></button>
-          <button type="button" data-category="XV Hombre"><svg><use href="#icon-people" /></svg><span>XV Hombre</span><svg class="chevron"><use href="#icon-chevron" /></svg></button>
-        </div>
+        <nav id="style-switch" class="style-switch" aria-label="Color o temática"></nav>
 
         <nav class="tier-switch" aria-label="Nivel de invitación">
+          <button type="button" data-tier="Básico" aria-pressed="false">Básico</button>
           <button type="button" data-tier="Intermedio" aria-pressed="false">Intermedio</button>
           <button type="button" data-tier="Premium" aria-pressed="false">Premium</button>
-          <button class="is-active" type="button" data-tier="Ultra" aria-pressed="true">Ultra</button>
+          <button class="is-active" type="button" data-tier="Ultra" aria-pressed="true">Ultra Premium</button>
         </nav>
 
         <div class="catalog__heading">
-          <h2 id="catalog-title">All models can be customized in any color you like</h2>
+          <h2 id="catalog-title">Todos los modelos se pueden personalizar en el color que quieras</h2>
           <p id="catalog-subtitle">Todos los modelos se pueden adaptar al color que quieras</p>
         </div>
         <section id="product-grid" class="product-grid" aria-live="polite" aria-label="Modelos disponibles"></section>
